@@ -148,6 +148,8 @@ you answer.
 Suppose it's raining OR the sprinkler is running, and that in
 either case the grass is wet. Is the grass wet? How would you
 prove it?
+
+or elimination
 -/
 
 
@@ -499,6 +501,14 @@ def p6 : Prop := false → 0 = 0
 def p7 : Prop := ∀ (P : Prop), true → P
 def p8 : Prop := ∀ (P : Prop), false → P 
 
+
+theorem p8_is_true : p8 := 
+begin
+unfold p8,
+assume P,
+assume f,
+apply false.elim f,
+end
 /-
 For each proposition, state whether it's true or false
 then give a proof of it (in English). Here are some formal
@@ -508,7 +518,7 @@ proofs to help.
 example : p1 := 
 begin
 unfold p1,
-assume f,
+assume f : false,
 exact f,
 end
 
@@ -516,7 +526,9 @@ example : p2 :=
 begin
 unfold p2,
 assume f,
-apply false.elim f,   -- apply false elim rule!
+--apply false.elim f,   -- apply false elim rule!
+--apply true.intro,
+contradiction,
 end
 
 example : p3 := 
